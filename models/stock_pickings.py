@@ -7,7 +7,7 @@ class StockPickings(models.Model):
 
     @api.constrains('scheduled_date')
     def _get_origin(self):
-        if  'WH/PC' in self.name:
+        if self.picking_type_code=='internal':
             att_model = self.env['mrp.production']
             query = [("state","!=","draft"),("state","!=","cancel"),("state","!=","done")]
             for i in att_model.search(query):
